@@ -9,7 +9,6 @@ Description: This script ingests multiple CSV files from a specified input direc
 
 import pandas as pd
 import os
-import json
 import logging
 from dir_conf import input_folder_path, output_folder_path
 

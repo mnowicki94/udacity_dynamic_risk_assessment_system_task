@@ -18,8 +18,8 @@ test_data_path = os.path.join(
     os.path.abspath(f"../{project_name}"), "data", config["test_data_path"]
 )
 output_model_path = os.path.join(
-    os.path.abspath(f"../{project_name}"), "model", config["output_model_path"]
+    os.path.abspath(f"../{project_name}"), "models", config["output_model_path"]
 )
 prod_deployment_path = os.path.join(
-    os.path.abspath(f"../{project_name}"), "model", config["prod_deployment_path"]
+    os.path.abspath(f"../{project_name}"), "models", config["prod_deployment_path"]
 )
