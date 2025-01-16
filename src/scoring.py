@@ -14,19 +14,22 @@ from dir_conf import output_model_path, test_data_path
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/scoring.log"), logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler("logs/scoring.log", mode="w"),
+        logging.StreamHandler(),
+    ],
 )
 
 
 #################Function for model scoring
-def score_model(output_model_path, test_data_path):
+def score_model(output_model_path, test_data_path, filename):
     # Load the trained model
     model_path = os.path.join(output_model_path, "trainedmodel.pkl")
     with open(model_path, "rb") as model_file:
         model = pickle.load(model_file)
 
     # Load the test data
-    test_data = pd.read_csv(os.path.join(test_data_path, "testdata.csv"))
+    test_data = pd.read_csv(os.path.join(test_data_path, filename))
     X_test = test_data.drop(columns=["exited", "corporation"])
     y_test = test_data["exited"]
 
@@ -43,6 +46,9 @@ def score_model(output_model_path, test_data_path):
 
     logging.info(f"Model F1 Score: {f1_score}")
 
+    return f1_score
+
 
 if __name__ == "__main__":
-    score_model(output_model_path, test_data_path)
+    filename = "testdata.csv"
+    score_model(output_model_path, test_data_path, filename)

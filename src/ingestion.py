@@ -17,7 +17,10 @@ from dir_conf import input_folder_path, output_folder_path
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/ingestion.log"), logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler("logs/ingestion.log", mode="w"),
+        logging.StreamHandler(),
+    ],
 )
 
 # Create a logs directory if it doesn't exist

@@ -1,22 +1,5 @@
-2025-01-15 16:57:33,630 - INFO - Starting model training.
-2025-01-15 16:57:33,635 - INFO - Data loaded from finaldata.csv.
-2025-01-15 16:57:33,638 - INFO - Data split into training and test sets.
-2025-01-15 16:58:10,927 - INFO - Starting model training.
-2025-01-15 16:58:10,928 - INFO - Data loaded from finaldata.csv.
-2025-01-15 16:58:10,929 - INFO - Data split into training and test sets.
-2025-01-15 16:58:39,050 - INFO - Starting model training.
-2025-01-15 16:58:39,051 - INFO - Data loaded from finaldata.csv.
-2025-01-15 16:58:39,052 - INFO - Data split into training and test sets.
-2025-01-15 16:59:25,161 - INFO - Starting model training.
-2025-01-15 16:59:25,163 - INFO - Data loaded from finaldata.csv.
-2025-01-15 16:59:25,164 - INFO - Data split into training and test sets.
-2025-01-15 16:59:25,168 - INFO - Model training completed.
-2025-01-15 16:59:47,499 - INFO - Starting model training.
-2025-01-15 16:59:47,500 - INFO - Data loaded from finaldata.csv.
-2025-01-15 16:59:47,501 - INFO - Data split into training and test sets.
-2025-01-15 16:59:47,503 - INFO - Model training completed.
-2025-01-15 17:00:29,264 - INFO - Starting model training.
-2025-01-15 17:00:29,266 - INFO - Data loaded from finaldata.csv.
-2025-01-15 17:00:29,267 - INFO - Data split into training and test sets.
-2025-01-15 17:00:29,268 - INFO - Model training completed.
-2025-01-15 17:00:29,269 - INFO - Model saved to /Users/nom3wz/Documents/repos/udacity/udacity_dynamic_risk_assessment_system_task/models/practicemodels/trainedmodel.pkl
+2025-01-16 12:16:43,778 - INFO - Starting model training.
+2025-01-16 12:16:43,779 - INFO - Data loaded from finaldata.csv.
+2025-01-16 12:16:43,780 - INFO - Data split into training and test sets.
+2025-01-16 12:16:43,781 - INFO - Model training completed.
+2025-01-16 12:16:43,781 - INFO - Model saved to /Users/nom3wz/Documents/repos/udacity/udacity_dynamic_risk_assessment_system_task/models/models/trainedmodel.pkl

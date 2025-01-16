@@ -1,50 +1,75 @@
+"""
+Author: Maciej Nowicki
+Date: 2023-10-05
+Description: This script sets up a Flask web application with multiple endpoints for
+             prediction, scoring, summary statistics, and diagnostics for a dynamic
+             risk assessment system.
+"""
+
 from flask import Flask, session, jsonify, request
 import pandas as pd
 import numpy as np
 import pickle
-import create_prediction_model
-import diagnosis 
-import predict_exited_from_saved_model
+import diagnostics
+import scoring
+import reporting
 import json
 import os
-
+from dir_conf import test_data_path, prod_deployment_path, output_model_path
 
 
 ######################Set up variables for use in our script
 app = Flask(__name__)
-app.secret_key = '1652d576-484a-49fd-913a-6879acfa6ba4'
+app.secret_key = "1652d576-484a-49fd-913a-6879acfa6ba4"
 
-with open('config.json','r') as f:
-    config = json.load(f) 
 
-dataset_csv_path = os.path.join(config['output_folder_path']) 
-
-prediction_model = None
+@app.route("/")
+def index():
+    return "Hi World"
 
 
 #######################Prediction Endpoint
-@app.route("/prediction", methods=['POST','OPTIONS'])
-def predict():        
-    #call the prediction function you created in Step 3
-    return #add return value for prediction outputs
+@app.route("/prediction", methods=["GET", "OPTIONS"])
+def predict():
+    filename = request.args.get("filename")
 
-#######################Scoring Endpoint
-@app.route("/scoring", methods=['GET','OPTIONS'])
-def stats():        
-    #check the score of the deployed model
-    return #add return value (a single F1 score number)
+    # Call the prediction function
+    predictions = diagnostics.model_predictions(
+        prod_deployment_path, test_data_path, filename
+    )
+    # Return predictions as JSON
+    return jsonify(predictions.tolist())
 
-#######################Summary Statistics Endpoint
-@app.route("/summarystats", methods=['GET','OPTIONS'])
-def stats():        
-    #check means, medians, and modes for each column
-    return #return a list of all calculated summary statistics
 
-#######################Diagnostics Endpoint
-@app.route("/diagnostics", methods=['GET','OPTIONS'])
-def stats():        
-    #check timing and percent NA values
-    return #add return value for all diagnostics
+# #######################Scoring Endpoint
+@app.route("/scoring", methods=["GET", "OPTIONS"])
+def score():
+    filename = request.args.get("filename")
+    score = scoring.score_model(output_model_path, test_data_path, filename)
+    # Return score as JSON
+    # http://127.0.0.1:8000/scoring?filename=testdata.csv
+    return jsonify(score.item())
 
-if __name__ == "__main__":    
-    app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)
+
+# #######################Summary Statistics Endpoint
+@app.route("/summarystats", methods=["GET", "OPTIONS"])
+def stats():
+    filename = request.args.get("filename")
+    stats = diagnostics.dataframe_summary(test_data_path, filename)
+    # Return stats as JSON
+    return jsonify(stats)
+
+
+# #######################Diagnostics Endpoint
+@app.route("/diagnostics", methods=["GET", "OPTIONS"])
+def other_diagnostics():
+    filename = request.args.get("filename")
+    time = diagnostics.execution_time()
+    nas = diagnostics.missing_data(test_data_path, filename)
+    outdated = diagnostics.outdated_packages_list()
+
+    return jsonify({"time": time, "missing_data": nas, "outdated_packages": outdated})
+
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=8000, debug=True, threaded=True)

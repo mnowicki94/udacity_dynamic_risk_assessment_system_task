@@ -28,7 +28,10 @@ from dir_conf import output_folder_path, output_model_path
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/training.log"), logging.StreamHandler()],
+    handlers=[
+        logging.FileHandler("logs/training.log", mode="w"),
+        logging.StreamHandler(),
+    ],
 )
 
 
